@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["crates/core", "crates/mcp-server", "crates/cli", "apps/companion/src-tauri"]
+members = ["crates/cortex", "crates/synapse", "crates/brain-cli", "apps/companion/src-tauri"]
 
 [workspace.package]
 edition = "2024"

@@ -9,24 +9,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "320119579fcad9c21884f5c4861d16174d0e06250625266f50fe6898340abefa"
 
 [[package]]
-name = "agent-brain"
-version = "0.1.0"
-dependencies = [
- "agent-brain-core",
-]
-
-[[package]]
-name = "agent-brain-core"
-version = "0.1.0"
-
-[[package]]
-name = "agent-brain-mcp"
-version = "0.1.0"
-dependencies = [
- "agent-brain-core",
-]
-
-[[package]]
 name = "aho-corasick"
 version = "1.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -320,6 +302,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "brain-app"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_json",
+ "tauri",
+ "tauri-build",
+ "tauri-plugin-opener",
+]
+
+[[package]]
+name = "brain-cli"
+version = "0.1.0"
+dependencies = [
+ "cortex",
+]
+
+[[package]]
 name = "brotli"
 version = "9.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -510,17 +510,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "companion"
-version = "0.1.0"
-dependencies = [
- "serde",
- "serde_json",
- "tauri",
- "tauri-build",
- "tauri-plugin-opener",
-]
-
-[[package]]
 name = "concurrent-queue"
 version = "2.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -578,6 +567,10 @@ dependencies = [
  "core-foundation",
  "libc",
 ]
+
+[[package]]
+name = "cortex"
+version = "0.1.0"
 
 [[package]]
 name = "cpufeatures"
@@ -3415,6 +3408,13 @@ dependencies = [
  "proc-macro2",
  "quote",
  "unicode-ident",
+]
+
+[[package]]
+name = "synapse"
+version = "0.1.0"
+dependencies = [
+ "cortex",
 ]
 
 [[package]]

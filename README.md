@@ -20,7 +20,7 @@ It does not replace your AI tool. It runs inside the agent tool you already have
 | `brain/` | The rules (`AGENTS.md`) and the skills (`SKILL.md` format), shared by every tool |
 | `vault-template/` | The starter Obsidian vault: folders, indexes, daily note template |
 | `adapters/` | One installer per agent tool, placing `brain/` where that tool looks for it |
-| `crates/` | Rust: `core` (vault, display, and settings logic), `mcp-server` (the actions every agent tool can call), `cli` (the installer) |
+| `crates/` | Rust: `cortex` (core library: vault, display, and settings logic), `synapse` (MCP server: the actions every agent tool can call), `brain-cli` (the installer, run as `brain`) |
 | `apps/companion/` | The voice, face, and chat app (Tauri 2, React, TypeScript, Tailwind CSS, daisyUI) |
 | `voice/` | Python helper for the companion: the agent session, speech-to-text, and voices |
 
