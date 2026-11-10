@@ -1,0 +1,34 @@
+# Personal data: real vaults never go in this repo (vault-template/ is the only vault content tracked)
+vault/
+*.vault/
+.obsidian/workspace*.json
+
+# Secrets
+.env
+.env.*
+*.key
+*.pem
+secrets/
+
+# Logs and runtime state
+logs/
+*.log
+.voice_*
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Rust
+target/
+
+# Node and build output
+node_modules/
+dist/
+
+# Tauri generated schemas
+apps/companion/src-tauri/gen/
+
+# OS
+.DS_Store
