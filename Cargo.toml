@@ -5,6 +5,7 @@ members = ["crates/cortex", "crates/synapse", "crates/brain-cli", "apps/companio
 [workspace.package]
 edition = "2024"
 license = "AGPL-3.0-or-later"
+repository = "https://github.com/Scott-Duby/engram"
 
 # Read the optimization guideline for more details: https://tauri.app/concept/size/#cargo-configuration
 [profile.release]

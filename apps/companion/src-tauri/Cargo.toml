@@ -2,7 +2,7 @@
 name = "brain-app"
 publish = false
 version = "0.1.0"
-description = "Agent Brain companion app"
+description = "Engram companion app"
 authors = ["Scott-Duby"]
 edition.workspace = true
 license.workspace = true

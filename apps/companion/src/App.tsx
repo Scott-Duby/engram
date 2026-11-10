@@ -15,7 +15,7 @@ function App() {
     <main className="min-h-screen bg-base-200 flex items-center justify-center p-6">
       <div className="card bg-base-100 shadow-sm w-full max-w-md">
         <div className="card-body gap-4">
-          <h1 className="card-title text-2xl">Agent Brain</h1>
+          <h1 className="card-title text-2xl">Engram</h1>
           <p className="text-base-content/70">Companion app scaffold. Voice, face, chat, and the display come next.</p>
           <form
             className="join w-full"

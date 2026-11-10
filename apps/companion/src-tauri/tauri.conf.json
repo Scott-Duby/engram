@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "Agent Brain",
+  "productName": "Engram",
   "version": "0.1.0",
-  "identifier": "dev.agentbrain.companion",
+  "identifier": "io.github.scott-duby.engram",
   "build": {
     "beforeDevCommand": "yarn dev",
     "devUrl": "http://localhost:1420",
@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "Agent Brain",
+        "title": "Engram",
         "width": 800,
         "height": 600
       }

@@ -1,8 +1,8 @@
-# agent-brain
+# Engram
 
-> Working name. Early development: nothing here is ready to install yet.
+> Early development: nothing here is ready to install yet.
 
-An open-source brain for the AI agent you already use. It gives the agent a long-term memory in an Obsidian vault, a set of operating rules, and skills for recurring jobs. Later it adds a companion app for voice, an animated face, and a chat window.
+An engram is a memory trace stored in the brain. Engram is an open-source brain for the AI agent you already use. It gives the agent a long-term memory in an Obsidian vault, a set of operating rules, and skills for recurring jobs. Later it adds a companion app for voice, an animated face, and a chat window.
 
 It does not replace your AI tool. It runs inside the agent tool you already have, on your own account:
 
