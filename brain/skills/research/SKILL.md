@@ -10,8 +10,13 @@ The vault is your memory, so look there first. Outside sources fill the gaps, an
 ## Order
 
 1. **The vault.**
-   - Start at `VAULT-INDEX.md` and the folder indexes, then follow links. Search the vault for the key terms and their synonyms.
-   - Read every note that matters, in full.
+   - Search in tiers, and stop at the first one that answers:
+     1. **Filename.** Note names are topic names, so a filename match often is the answer (`fd -i "<term>" -e md`).
+     2. **Folder indexes.** Every index lists its notes with one line each, so together they're a catalog of the vault. Search just the index notes, trimmed to the match (`rg -i -o ".{0,70}<term>.{0,70}"` over them), since some indexes keep a whole list on one line.
+     3. **Full text, ranked.** Count matches per note (`rg -i -c "<term>" -g '*.md'`, sorted). The top hit is usually the source note.
+     4. **Only the section you need.** Pull the note's headings (`rg -n "^#{1,3} "`), then read just the matching section.
+   - Search synonyms and abbreviations too. If `rg` and `fd` aren't installed, use your tool's own search the same way.
+   - Read the whole note when the section leaves the answer unclear, or when the note is the source for a job.
    - If the vault answers the question completely, stop. Answer from it and name the notes it came from.
 2. **Outside, for whatever the vault doesn't cover.** Two kinds of source, used together:
    - **The owner's source material:** textbooks, ebooks, manuals, and course documents. How you reach each one is in its access note in `10 - Agent/`. For anything the owner is being taught or tested on, this is the authority on what the course says.

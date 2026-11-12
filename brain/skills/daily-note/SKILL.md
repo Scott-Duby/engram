@@ -34,7 +34,7 @@ The daily note is the log of what happened across every session in a day. Severa
 ## At session start: check the previous note
 
 Look at the most recent daily note before today.
-- **It exists:** read it. If you have context it's missing, append a section. Otherwise leave it alone.
+- **It exists:** read its `## Index` block first; that's enough to tell whether it covers what you know. If you have context it's missing, read the full note and append a section. Otherwise leave it alone.
 - **It doesn't exist and you have context for that day:** create it from the template and mark it as reconstructed and possibly incomplete.
 - **No context for that day:** assume a day off. Don't create an empty note.
 

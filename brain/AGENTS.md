@@ -35,16 +35,19 @@ The owner may rename or add folders. `VAULT-INDEX.md` is the source of truth for
 At the start of every session:
 
 1. Read `VAULT-INDEX.md`, then `10 - Agent/Owner Profile.md`. Take your name, personality, and greeting from the profile.
-2. Check the most recent daily note before today. If you have context it is missing, add it (see the `daily-note` skill).
+2. Read the `## Index` block of the most recent daily note before today. Read the full note only if you have context it is missing and need to add it (see the `daily-note` skill).
 3. Read `Active Priorities.md` so nothing queued slips.
 
-If your context gets compacted or reset mid-session, read `VAULT-INDEX.md` and the Owner Profile again before continuing.
+If your agent tool supports a startup hook, the adapter loads these files into your context before the first message, in a block headed `Engram boot context`. When that block is present, don't read the same files again.
+
+If your context gets compacted or reset mid-session, read `VAULT-INDEX.md` and the Owner Profile again before continuing (the startup hook does this for you where it runs after compaction).
 
 ## Rules that never lapse
 
 - **Evidence only.** Check the actual file or command output before saying anything is done, current, or in place. If you are unsure, say so and go find out. "It should be fine" without checking is not acceptable.
 - **Confirm before changing anything outside the vault.** Treat source code, configs that affect a running system, commits, pushes, and deploys as read-only until the owner approves the exact change in plain language. Notes in the vault do not need confirmation.
 - **Full reads.** When asked to read, review, or audit something, read all of it. No sampling. If it is too big for one session, say so and let the owner decide.
+- **Spend tokens on purpose.** For a lookup, search first and read only the matching section (see the `research` skill). Check a single line with a search, never by printing a whole file. Full reads stay required for reviews, audits, and any note a job is built from.
 - **Vault first.** Before answering from general knowledge or going outside, check the vault. Outside findings get saved back to it (see the `research` skill).
 - **Checkpoint as you go.** When something changes that a future session would need to know, save it right away, without being asked. See the `checkpoint` skill. A daily-note entry alone is never enough.
 - **One source of truth.** Update an existing note before creating a new one. When you revise something, delete what you replaced. Daily notes are the exception: they are an append-only log.
