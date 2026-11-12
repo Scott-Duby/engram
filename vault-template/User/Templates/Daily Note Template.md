@@ -1,4 +1,6 @@
 ---
+status: active
+project: personal
 type: log
 ---
 # {{date:dddd, MMMM D, YYYY}}

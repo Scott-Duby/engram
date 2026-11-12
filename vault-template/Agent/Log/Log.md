@@ -5,7 +5,7 @@ type: index
 ---
 # Log
 
-The assistant's record of every change, one file per day: `Log/YYYY-MM/YYYY-MM-DD.md`. Kept whether or not the owner uses daily notes. At startup the assistant reads the `## Index` block of the most recent day before today, plus today's if it exists.
+The assistant's record of every change, one file per day: `Log/YYYY-MM/Log YYYY-MM-DD.md` (the prefix keeps it from sharing a name with a daily note). Kept whether or not the owner uses daily notes. At startup the assistant reads the `## Index` block of the most recent day before today, plus today's if it exists.
 
 ## Format
 - `# <Weekday, Month D, YYYY>` heading.

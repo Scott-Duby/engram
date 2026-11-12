@@ -12,8 +12,8 @@ A vault that drifts gives future sessions a wrong map. This check finds the drif
 Check the whole vault, or the folders the owner names. Read every note in scope. Don't sample.
 
 1. **Folder indexes.**
-   - Every owner folder with real content (5 or more notes, or a separate area of its own) has an index in `Agent/Indexes/` named `<Folder> Index.md`, listed in `Agent/Indexes/Indexes.md`. No index notes sit inside the owner's folders.
-   - Every note in the folder is listed in its index, and every entry in the index points to a note that exists.
+   - Every owner folder with real content (5 or more notes, or a separate area of its own) has an index in `Agent/Indexes/` named `<Folder> Index.md` (folder name without its `NN - ` number), listed in `Agent/Indexes/Indexes.md`. No index notes sit inside the owner's folders.
+   - Every note in the folder is listed in its index, and every entry in the index points to a note that exists. Exception: the daily notes index lists month subfolders, not each daily note.
    - Every top-level folder appears in `Agent/Vault Map.md`.
    - Folder names follow `Agent/Vault Settings.md` (numbered or not), and with tags as folders on, every tag in use has a current `Tags/<tag>.md`.
 2. **Frontmatter.**

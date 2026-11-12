@@ -12,12 +12,12 @@ Daily notes are different: they belong to the owner. When `Agent/Vault Settings.
 ## Where the log lives
 
 - Folder: `Agent/Log/YYYY-MM/` (for example `Agent/Log/2026-11/`). Add each new month to `Agent/Log/Log.md`.
-- Filename: `YYYY-MM-DD.md`.
+- Filename: `Log YYYY-MM-DD.md` (for example `Log 2026-11-11.md`). The `Log ` prefix keeps it from sharing a name with the owner's daily note for the same day, which would make `[[links]]` ambiguous.
 - Template: `Agent/Templates/Log Entry Template.md` if it exists; otherwise the format below.
 
 ## Steps
 
-1. **Get the real date and time** from the system. Don't trust the date the session started on.
+1. **Get the real date and time** from the system, and read the result before writing anything. Never write a date or time you haven't read from the clock, and don't trust the date the session started on.
 2. **If today's log doesn't exist,** create it:
    - Frontmatter: `status: active`, `project: meta`, `type: log`.
    - A readable date heading: `# Wednesday, November 11, 2026`.
@@ -31,7 +31,7 @@ Daily notes are different: they belong to the owner. When `Agent/Vault Settings.
    - **Notes touched:** wikilinks.
    - **Profile updates:** every change to the Owner Profile (see the `owner-profile` skill).
 5. **Index line:** `- **<Bold topic>**: <one sentence on the outcome>.`
-6. **Daily note, if on.** Find or create today's daily note where `Agent/Vault Settings.md` says, built from the owner's daily note template. Never write a bare heading. Fill only the template's own sections, in plain language a person would write for themselves: what got done, not how you did it. Leave out paths, commit hashes, and your own working notes; those stay in the log. Never overwrite what the owner wrote there.
+6. **Daily note, if on.** Find or create today's daily note where `Agent/Vault Settings.md` says, built from the owner's daily note template. Never write a bare heading. If it starts a new month subfolder, add the month to the daily notes folder's index. Fill only the template's own sections, in plain language a person would write for themselves: what got done, not how you did it. Leave out paths, commit hashes, and your own working notes; those stay in the log. Never overwrite what the owner wrote there.
 7. Read every change back and confirm it's there.
 
 ## At session start: check the previous day

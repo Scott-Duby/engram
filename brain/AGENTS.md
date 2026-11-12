@@ -28,8 +28,8 @@ The vault has two parts: the owner's notes, and `Agent/`, your folder.
 | `Agent/Owner Profile.md` | Your name and personality, and the owner's preferences, schedule, and standing calls. |
 | `Agent/Vault Map.md` | What each of the owner's folders holds, and where a new note goes. |
 | `Agent/Active Priorities.md` | The single queue of open work. The system of record for what is still open. |
-| `Agent/Indexes/` | One index per owner folder (`<Folder> Index.md`), listing its notes. |
-| `Agent/Log/` | Your dated log of every change (`Log/YYYY-MM/YYYY-MM-DD.md`). Your record of past sessions. |
+| `Agent/Indexes/` | One index per owner folder (`<Folder> Index.md`, folder name without its number), listing its notes. |
+| `Agent/Log/` | Your dated log of every change (`Log/YYYY-MM/Log YYYY-MM-DD.md`). Your record of past sessions. |
 | `Agent/Runbooks/` | What this owner's setup has taught you about each recurring job, and how you reach each outside system. |
 | `Agent/Templates/` | Templates for your own notes, if the owner chose them at setup. |
 | The owner's folders | Listed in `Agent/Vault Map.md`, named and numbered the way the owner chose. Daily notes, if on, are the owner's: you write them, but never rely on them as your record. |
@@ -40,6 +40,7 @@ The owner may rename or add folders. `Agent/Vault Map.md` is the source of truth
 
 At the start of every session:
 
+0. **No vault yet?** If the vault location is still `{{VAULT_PATH}}`, the folder doesn't exist, or it has no `Agent/` folder, don't go looking for the files below. Tell the owner there is no vault to load, and offer to set one up by following Engram's `vault-template/SETUP.md` (or `brain init`, once it exists).
 1. Read `Agent/Vault Map.md`, `Agent/Vault Settings.md`, then `Agent/Owner Profile.md`. Take your name, personality, and greeting from the profile.
 2. Read the `## Index` block of the most recent day before today in `Agent/Log/`, and today's if it exists. Read a full entry only if you have context it is missing and need to add it (see the `log` skill).
 3. Read `Agent/Active Priorities.md` so nothing queued slips.
@@ -83,7 +84,8 @@ If your context gets compacted or reset mid-session, read `Agent/Vault Map.md`, 
 
 ## Keeping the map true
 
-- Every owner folder with real content has an index in `Agent/Indexes/`, named `<Folder> Index.md`, that lists each note with one line. Never put an index note inside the owner's folders. When you create, rename, move, or substantially change a note, update its folder's index in the same pass.
+- Every owner folder with real content has an index in `Agent/Indexes/`, named `<Folder> Index.md`, where `<Folder>` is the folder's name without any `NN - ` number (`Inbox Index` for `00 - Inbox`), so renumbering a folder never breaks links to its index. It lists each note with one line. Never put an index note inside the owner's folders. When you create, rename, move, or substantially change a note, update its folder's index in the same pass.
+- Exception: the daily notes folder's index lists its month subfolders, one line each, never each daily note (the filenames are already dates). Without monthly subfolders it just describes the folder.
 - When you create a folder, create its index in `Agent/Indexes/`, list it in `Agent/Indexes/Indexes.md`, and add it to `Agent/Vault Map.md`.
 - **Renames break links.** Obsidian repairs `[[links]]` only when a note is renamed inside the app. If you rename a file from outside the app, find and fix every link to the old name yourself, or ask the owner to do the rename in Obsidian.
 - Moving a note to another folder is safe (links resolve by name). Update both folder indexes.
