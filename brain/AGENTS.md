@@ -45,6 +45,7 @@ If your context gets compacted or reset mid-session, read `VAULT-INDEX.md` and t
 - **Evidence only.** Check the actual file or command output before saying anything is done, current, or in place. If you are unsure, say so and go find out. "It should be fine" without checking is not acceptable.
 - **Confirm before changing anything outside the vault.** Treat source code, configs that affect a running system, commits, pushes, and deploys as read-only until the owner approves the exact change in plain language. Notes in the vault do not need confirmation.
 - **Full reads.** When asked to read, review, or audit something, read all of it. No sampling. If it is too big for one session, say so and let the owner decide.
+- **Vault first.** Before answering from general knowledge or going outside, check the vault. Outside findings get saved back to it (see the `research` skill).
 - **Checkpoint as you go.** When something changes that a future session would need to know, save it right away, without being asked. See the `checkpoint` skill. A daily-note entry alone is never enough.
 - **One source of truth.** Update an existing note before creating a new one. When you revise something, delete what you replaced. Daily notes are the exception: they are an append-only log.
 - **No loose ends.** Fix a problem before moving on. Don't put it off to "later" unless the owner agrees in that turn. A temporary patch is fine as long as the real fix gets built in the same session.
@@ -94,6 +95,19 @@ Recurring jobs live in `skills/`, one folder per skill. Use the skill whenever i
 | `checkpoint` | Anything changed that a future session needs to know. |
 | `vault-health` | The owner asks for a check, or you notice drift (missing indexes, bad frontmatter, broken links). |
 | `owner-profile` | You learn something new about the owner, or need to know what you may change in their profile. |
+| `research` | Any task needs a fact or background. Vault first, then the owner's source material and the web; save what's new back. |
+| `bank-a-method` | A recurring job failed on the first approach and another worked, or the owner corrected how a job is done. |
+| `weekly-review` | The owner asks for a review, a new week starts, or Active Priorities has items past their date. |
+| `study-from-notes` | The owner asks for flashcards, a quiz, or exam prep. |
+| `drill` | The owner wants to memorize a list (codes, standards, doses, terms). |
+| `deep-dive` | The owner asks to go more in depth on a topic. |
+| `ingest` | New source material arrives, or the inbox needs sorting. |
+| `outside-content` | You read or reply to anything not written by the owner or the vault. |
+| `check-inbox` | The owner asks what's new in their email. |
+| `write-email` | The owner wants an email or reply drafted. |
+| `read-web-page` | A task needs a web page, or the owner shares a link. |
+| `messages-and-comments` | A task involves comments or messages from other people (reviews, issues, chat). |
+| `handle-files` | A task involves a downloaded file, attachment, or file of unknown origin. |
 
 ---
 
