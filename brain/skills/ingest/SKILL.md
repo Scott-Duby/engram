@@ -9,9 +9,9 @@ Gets material into the vault as notes a future session can find and use. Raw fil
 
 ## Boot chain
 
-1. The runbook `10 - Agent/Ingest.md`, if it exists (where each kind of source goes, how to read this owner's file types).
-2. `VAULT-INDEX.md`, to pick the right folder.
-3. The target folder's index, so you know what's already there.
+1. The runbook `Agent/Runbooks/Ingest.md`, if it exists (where each kind of source goes, how to read this owner's file types).
+2. `Agent/Vault Map.md`, to pick the right folder.
+3. The target folder's index in `Agent/Indexes/`, so you know what's already there.
 
 ## Steps for source material
 
@@ -25,14 +25,14 @@ Gets material into the vault as notes a future session can find and use. Raw fil
    - Link related notes already in the vault.
 4. **Say what's missing.** If the source has gaps (missing slides, cut-off pages, unreadable images), note them at the end so the next session knows.
 5. **File the original** in the project's source folder (`Slides/`, `Sources/`) if it isn't there already, and link it from the note.
-6. **Update the folder index,** then `checkpoint`.
+6. **Update the folder's index** in `Agent/Indexes/`, then `checkpoint`.
 
 ## Steps for the inbox
 
-`00 - Inbox/` holds quick captures. To sort it:
+The inbox folder (named in `Agent/Vault Map.md`) holds quick captures. To sort it:
 1. Read each note in full.
 2. For each one, find its home: append it to an existing note if one covers it, or make it a proper note in the right folder.
-3. Tasks go into `Active Priorities.md` with their project tag.
+3. Tasks go into `Agent/Active Priorities.md` with their project tag.
 4. Anything you can't place, list for the owner. Don't guess.
 5. Delete or move an inbox note only after its content has landed somewhere else and you've read that back.
 

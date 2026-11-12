@@ -9,13 +9,13 @@ Turns the owner's course or topic notes into a flashcard deck and a quiz, then d
 
 ## Boot chain
 
-1. The runbook `10 - Agent/Study From Notes.md`, if it exists (where this owner's decks live, what app or plugin reviews them, past lessons).
+1. The runbook `Agent/Runbooks/Study From Notes.md`, if it exists (where this owner's decks live, what app or plugin reviews them, past lessons).
 2. The notes for the topic, in full. If the notes are thin or end early, the source material they came from (slides, ebook, handouts).
-3. `Active Priorities.md`, to weight the deck toward the next quiz or exam.
+3. `Agent/Active Priorities.md`, to weight the deck toward the next quiz or exam.
 
 ## Steps
 
-1. **Confirm the scope.** Which chapter, topic, or exam. If the owner doesn't say, use the next dated exam in `Active Priorities.md`.
+1. **Confirm the scope.** Which chapter, topic, or exam. If the owner doesn't say, use the next dated exam in `Agent/Active Priorities.md`.
 2. **Check coverage first.** Compare the notes against their source. Notes copied by hand often stop partway through. If the notes are missing material, build cards from the source for that part and tell the owner which part came from the source.
 3. **Write the deck** in the project's flashcards folder (ask once where it should live if the runbook doesn't say, then record it there).
    - One card per line: `Question :: Answer`. This is the format the Obsidian Spaced Repetition plugin reads.

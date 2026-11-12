@@ -19,7 +19,7 @@ The vault is your memory, so look there first. Outside sources fill the gaps, an
    - Read the whole note when the section leaves the answer unclear, or when the note is the source for a job.
    - If the vault answers the question completely, stop. Answer from it and name the notes it came from.
 2. **Outside, for whatever the vault doesn't cover.** Two kinds of source, used together:
-   - **The owner's source material:** textbooks, ebooks, manuals, and course documents. How you reach each one is in its access note in `10 - Agent/`. For anything the owner is being taught or tested on, this is the authority on what the course says.
+   - **The owner's source material:** textbooks, ebooks, manuals, and course documents. How you reach each one is in its access note in `Agent/Runbooks/`. For anything the owner is being taught or tested on, this is the authority on what the course says.
    - **The web:** search, then read the pages behind the results (see `read-web-page`). Use it for depth, current information, and anything the source material doesn't cover. Prefer primary sources: research, standards bodies, and government agencies before trade press, and trade press before everything else.
    If the topic has no source material, use the web alone.
 3. **General knowledge last.** Anything you answer from your own knowledge without a source, say so.

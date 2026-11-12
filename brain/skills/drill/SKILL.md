@@ -9,10 +9,10 @@ For things that have to be recalled cold: a code and what it means, a term and i
 
 ## Boot chain
 
-1. The runbook `10 - Agent/Drill.md`, if it exists.
+1. The runbook `Agent/Runbooks/Drill.md`, if it exists.
 2. The master list: the owner's note holding the items. Drill from it as written. Never rewrite or reformat the owner's list.
 3. The progress note for this list (`<List name> Drill Progress.md`, next to the list), if it exists.
-4. `Active Priorities.md`, for how close the next exam is.
+4. `Agent/Active Priorities.md`, for how close the next exam is.
 
 ## Steps
 
@@ -23,7 +23,7 @@ For things that have to be recalled cold: a code and what it means, a term and i
    - Meaning to key ("Which code means a vehicle crash?").
    The owner **writes out** each answer before you reveal it.
 4. **Recycle misses** a few items later in the same session.
-5. **Log the session** in the progress note (create it on the first drill and add it to the folder index): date, score, and every miss.
+5. **Log the session** in the progress note (create it on the first drill and add it to its folder's index in `Agent/Indexes/`): date, score, and every miss.
 6. **End with a short score** and the items that still need reps.
 
 ## When an item is known

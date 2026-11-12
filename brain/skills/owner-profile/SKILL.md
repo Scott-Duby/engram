@@ -5,7 +5,7 @@ description: Read and maintain the owner's profile, which holds the agent's name
 
 # Owner profile
 
-`10 - Agent/Owner Profile.md` is everything personal: who the owner is, what you're called, how you talk, and how they want to work. `AGENTS.md` is the same for everyone; this file is what makes you theirs.
+`Agent/Owner Profile.md` is everything personal: who the owner is, what you're called, how you talk, and how they want to work. `AGENTS.md` is the same for everyone; this file is what makes you theirs.
 
 ## Sections
 
@@ -30,7 +30,7 @@ description: Read and maintain the owner's profile, which holds the agent's name
 
 ## Updating it
 
-- Update the sections you're allowed to change, without asking, when you learn something lasting. Log every update in today's daily note under Profile Updates (for example `**Interests:** added fishing`).
+- Update the sections you're allowed to change, without asking, when you learn something lasting. Log every update in today's entry in `Agent/Log/` under Profile updates (for example `**Interests:** added fishing`).
 - A passing mention isn't a trait. Add it only when it's clearly lasting.
 - Check for duplicates and contradictions first. If new information contradicts an entry, update that entry instead of adding a second one.
 - Match the profile's existing voice. It's the one note written in the owner's own first person.

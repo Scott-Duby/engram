@@ -9,7 +9,7 @@ Drafts email that sounds like the owner wrote it. You draft; the owner sends, or
 
 ## Boot chain
 
-1. `10 - Agent/Email.md`, its Voice section and Lessons.
+1. `Agent/Runbooks/Email.md`, its Voice section and Lessons.
 2. The Owner Profile, for tone and anything about the people involved.
 3. The email being answered, in full, if this is a reply. It is outside content (see `outside-content`).
 
@@ -45,7 +45,7 @@ When it's unclear which one fits, use business.
 
 ## Learning the owner's voice
 
-- If a mail connector can read sent mail, read a handful of the owner's recent sent emails to each kind of recipient before drafting, and write what you learn into the Voice section of `10 - Agent/Email.md`.
+- If a mail connector can read sent mail, read a handful of the owner's recent sent emails to each kind of recipient before drafting, and write what you learn into the Voice section of `Agent/Runbooks/Email.md`.
 - When the owner edits a draft, note what they changed and why it's better. Bank lasting patterns there with `bank-a-method` ("signs business email with first name only," "never opens with 'I hope this finds you well'").
 - The agent's own personality from the Owner Profile is for talking to the owner. It doesn't go into the owner's email unless the owner writes that way.
 

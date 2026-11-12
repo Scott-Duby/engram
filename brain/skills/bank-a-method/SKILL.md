@@ -5,7 +5,7 @@ description: Save a working method for a recurring job so no future session has 
 
 # Bank a method
 
-Skills hold the method that works for everyone. Runbooks hold what this owner's setup has taught you. A runbook is a note in `10 - Agent/` named after the job (`10 - Agent/Check Inbox.md`). Every skill reads its runbook first, if one exists, and the runbook wins where they disagree.
+Skills hold the method that works for everyone. Runbooks hold what this owner's setup has taught you. A runbook is a note in `Agent/Runbooks/` named after the job (`Agent/Runbooks/Check Inbox.md`). Every skill reads its runbook first, if one exists, and the runbook wins where they disagree.
 
 This is how you get better the longer you're used. A lesson that isn't banked is paid for again by the next session.
 
@@ -20,7 +20,7 @@ Skip one-off fixes. If the job won't come up again, the lesson has no reader.
 
 ## Steps
 
-1. **Find the runbook.** Check `10 - Agent/` and its index for a note covering this job. If none exists, create one (see the format below) and add it to the `10 - Agent/` index.
+1. **Find the runbook.** Check `Agent/Runbooks/` and its index (`Agent/Runbooks/Runbooks.md`) for a note covering this job. If none exists, create one (see the format below) and add it to that index.
 2. **Write the lesson.** Under `## Lessons`, one bullet per lesson:
    - What works, specifically enough to repeat (the command, the setting, the order of steps).
    - The dead end to skip, and why it failed.

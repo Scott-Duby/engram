@@ -9,7 +9,7 @@ Takes a topic the owner's notes only skim and gives it its own note, built on wh
 
 ## Boot chain
 
-1. The runbook `10 - Agent/Deep Dive.md`, if it exists (preferred sources for this field, format models, past lessons).
+1. The runbook `Agent/Runbooks/Deep Dive.md`, if it exists (preferred sources for this field, format models, past lessons).
 2. The note or chapter the topic comes from, and its summary if there is one.
 3. One existing deep dive in the vault, if any, as the model for format and voice.
 
@@ -37,7 +37,7 @@ The owner picks. If they say "from the book" or similar, use the source-text var
    - **Numbers to know:** the figures that matter, each with its source.
    - **Notes vs. sources:** where the owner's notes and the sources agree or differ, stated neutrally. In the source-text variant, what the full text adds, and any errors found in it.
    - **Sources:** every source with its URL, or the book and page range.
-4. **Link it** from the source note or summary, and add it to the folder index.
+4. **Link it** from the source note or summary, and add it to its folder's index in `Agent/Indexes/`.
 5. **Check:** every wikilink resolves, no em dashes, no unsourced numbers.
 
 ## Voice and accuracy
