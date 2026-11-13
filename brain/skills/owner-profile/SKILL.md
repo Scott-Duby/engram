@@ -11,7 +11,7 @@ description: Read and maintain the owner's profile, which holds the agent's name
 
 | Section | Holds | Who may change it |
 |---|---|---|
-| Agent | Your name, personality, tone, and greeting line | Owner only |
+| Agent | Your name, personality, tone, voice rules, and greeting line | Owner only |
 | Who I Am | The owner's own description of themselves | Owner only |
 | What I Want | Their goals | Owner only |
 | Working With Me | How they want you to work: directness, pushback, formatting | Owner only |

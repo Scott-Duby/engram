@@ -9,6 +9,7 @@ The design rule: **the assistant stays out of the owner's way.** Everything the 
 | Path | What it is | Copied into the vault? |
 |---|---|---|
 | `SETUP.md` | The setup interview and assembly steps the installer (or the assistant, until `brain init` exists) follows. | No |
+| `Personalities/` | Six personality presets (Butler, Wingman, Coach, Professional, Mentor, Minimal) offered in setup question 2. The chosen one is written into `Agent/Owner Profile.md`. | No |
 | `Agent/` | The assistant's folder. Always installed, always named `Agent/`, never numbered, so it sorts after the owner's folders. | Yes, always |
 | `Agent/Templates/` | Templates for the assistant's own notes (log entry, runbook, folder index). | Only if the owner opts in |
 | `User/Templates/` | Templates for the owner's notes, including the daily note template. | Only the ones the owner opts in to, into the owner's templates folder |
