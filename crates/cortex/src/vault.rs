@@ -25,15 +25,16 @@ pub fn check_path(path: &Path) -> Result<VaultKind> {
     if fs::read_dir(path)?.next().is_none() {
         return Ok(VaultKind::New);
     }
-    if !path.join(".obsidian").is_dir() {
-        bail!(
-            "{} has files in it but isn't an Obsidian vault (no .obsidian folder)",
-            path.display()
-        );
-    }
     if path.join("Agent").exists() {
         bail!(
             "{} already has an Agent folder; leaving it alone",
+            path.display()
+        );
+    }
+
+    if !path.join(".obsidian").is_dir() {
+        bail!(
+            "{} has files in it but isn't an Obsidian vault (no .obsidian folder)",
             path.display()
         );
     }
@@ -78,6 +79,8 @@ pub fn find_vault() -> Result<Option<PathBuf>> {
 
 #[cfg(test)]
 mod tests {
+    use tempfile::tempfile;
+
     use super::*;
 
     #[test]
@@ -113,5 +116,13 @@ mod tests {
         install_agent_folder(&vault).unwrap();
         assert!(vault.join("Agent/Owner Profile.md").is_file());
         assert!(vault.join("Agent/Log/Log.md").is_file());
+    }
+
+    #[test]
+    fn rerunning_init_on_a_new_vault_names_the_agent_folder() {
+        let tmp = tempfile::tempdir().unwrap();
+        install_agent_folder(tmp.path()).unwrap();
+        let err = check_path(tmp.path()).unwrap_err();
+        assert!(err.to_string().contains("already has an Agent folder"));
     }
 }
