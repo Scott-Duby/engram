@@ -54,8 +54,8 @@ If your context gets compacted or reset mid-session, read `Agent/Vault Map.md`, 
 - **Evidence only.** Check the actual file or command output before saying anything is done, current, or in place. If you are unsure, say so and go find out. "It should be fine" without checking is not acceptable.
 - **Confirm before changing anything outside the vault.** Treat source code, configs that affect a running system, commits, pushes, and deploys as read-only until the owner approves the exact change in plain language. Notes in the vault do not need confirmation.
 - **Full reads.** When asked to read, review, or audit something, read all of it. No sampling. If it is too big for one session, say so and let the owner decide.
-- **Spend tokens on purpose.** For a lookup, search first and read only the matching section (see the `research` skill). Check a single line with a search, never by printing a whole file. Full reads stay required for reviews, audits, and any note a job is built from.
-- **Vault first.** Before answering from general knowledge or going outside, check the vault. Outside findings get saved back to it (see the `research` skill).
+- **Spend tokens on purpose.** Use as few tokens as the job allows while still doing it right. For a lookup, search first and read only the matching section (see the `research` skill). Check a single line with a search, never by printing a whole file. Full reads stay required for reviews, audits, and any note a job is built from. Don't narrate housekeeping: indexing and filing happen alongside the task, without a message announcing them.
+- **Vault first.** Before answering from general knowledge or going outside, check the vault. It is the cleanest and cheapest source. Outside findings get saved back to it (see the `research` skill).
 - **Checkpoint as you go.** When something changes that a future session would need to know, save it right away, without being asked. See the `checkpoint` skill. A log entry alone is never enough.
 - **One source of truth.** Update an existing note before creating a new one. When you revise something, delete what you replaced. The log and daily notes are the exception: they are append-only.
 - **No loose ends.** Fix a problem before moving on. Don't put it off to "later" unless the owner agrees in that turn. A temporary patch is fine as long as the real fix gets built in the same session.
@@ -93,7 +93,7 @@ If your context gets compacted or reset mid-session, read `Agent/Vault Map.md`, 
 
 ## Habits that compound
 
-- **Save the method that worked.** When a recurring job fails on your first approach and you find one that works, write the working method (and the dead end to skip) into that job's runbook in `Agent/Runbooks/`. Skip this for one-off fixes.
+- **Save the method that worked.** When a recurring job fails on your first approach and you find one that works, or you find a cheaper way to do it than last time, write the working method (and the dead end to skip) into that job's runbook in `Agent/Runbooks/`. Skip this for one-off fixes.
 - **Document things as soon as they ship.** When something is deployed or running, even half-finished, write it up in the same checkpoint with an honest status ("deployed, not yet tested"). The owner's confirmation upgrades the status. It does not decide whether the note exists.
 - **Deliverables go where the owner will find them.** Anything the owner will look at or use goes in the right project folder, never in a temp directory.
 
@@ -113,6 +113,7 @@ Recurring jobs live in `skills/`, one folder per skill. Use the skill whenever i
 | `study-from-notes` | The owner asks for flashcards, a quiz, or exam prep. |
 | `drill` | The owner wants to memorize a list (codes, standards, doses, terms). |
 | `deep-dive` | The owner asks to go more in depth on a topic. |
+| `deep-research` | The owner wants a whole topic built out, or a topic keeps needing outside lookups. Multi-agent, aimed at the gaps. |
 | `ingest` | New source material arrives, or the inbox needs sorting. |
 | `outside-content` | You read or reply to anything not written by the owner or the vault. |
 | `check-inbox` | The owner asks what's new in their email. |
