@@ -1,3 +1,4 @@
+use std::ffi::OsString;
 use std::fs;
 use std::io::ErrorKind;
 use std::path::{Path, PathBuf};
@@ -60,15 +61,19 @@ pub fn config_file() -> Result<PathBuf> {
 
 pub fn save_vault_path(vault: &Path) -> Result<()> {
     let file = config_file()?;
-    fs::create_dir_all(file.parent().unwrap())?;
-    fs::write(&file, format!("{}\n", vault.display()))?;
+    let dir = file
+        .parent()
+        .context("the config file has no parent folder")?;
+    fs::create_dir_all(dir).with_context(|| format!("couldn't create {}", dir.display()))?;
+    fs::write(&file, format!("{}\n", vault.display()))
+        .with_context(|| format!("couldn't write {}", file.display()))?;
     Ok(())
 }
 
 /// ENGRAM_VAULT wins, then the config file. None means no vault set up yet.
 pub fn find_vault() -> Result<Option<PathBuf>> {
-    if let Ok(path) = std::env::var("ENGRAM_VAULT") {
-        return Ok(Some(PathBuf::from(path)));
+    if let Some(path) = vault_from_env(std::env::var_os("ENGRAM_VAULT")) {
+        return Ok(Some(path));
     }
     match fs::read_to_string(config_file()?) {
         Ok(text) => Ok(Some(PathBuf::from(text.trim()))),
@@ -77,10 +82,12 @@ pub fn find_vault() -> Result<Option<PathBuf>> {
     }
 }
 
+fn vault_from_env(value: Option<OsString>) -> Option<PathBuf> {
+    value.filter(|v| !v.is_empty()).map(PathBuf::from)
+}
+
 #[cfg(test)]
 mod tests {
-    use tempfile::tempfile;
-
     use super::*;
 
     #[test]
@@ -124,5 +131,15 @@ mod tests {
         install_agent_folder(tmp.path()).unwrap();
         let err = check_path(tmp.path()).unwrap_err();
         assert!(err.to_string().contains("already has an Agent folder"));
+    }
+
+    #[test]
+    fn empty_engram_vault_is_ignored() {
+        assert_eq!(vault_from_env(None), None);
+        assert_eq!(vault_from_env(Some(OsString::new())), None);
+        assert_eq!(
+            vault_from_env(Some("/tmp/v".into())),
+            Some(PathBuf::from("/tmp/v"))
+        );
     }
 }
