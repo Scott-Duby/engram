@@ -7,7 +7,7 @@ How a vault gets Engram. `brain init <path>` does the plumbing first: it checks 
 Ask one question at a time and wait for the answer. Offer the default; the owner can take it with a plain "yes."
 
 1. **New vault or existing vault?**
-   - If `brain init` already ran, don't ask this: it checked the path and copied `Agent/` in. A vault with no `.obsidian/` folder is new; one with `.obsidian/` is existing (handle it as below).
+   - If `brain init` already ran, don't ask this: it checked the path and copied `Agent/` in. It just ran if `brain vault` prints this path and `Agent/Log/` holds only `Log.md` (no entries yet); otherwise treat an existing `Agent/` as below. A vault with no `.obsidian/` folder is new; one with `.obsidian/` is existing (handle it as below).
    - New: ask where to create it (default `~/Documents/<Assistant name> Vault`).
    - Existing: ask for its path, then confirm it is an Obsidian vault (it has a `.obsidian/` folder). If an `Agent/` folder already exists there, stop and ask before going further.
 2. **What should the assistant be called, and how should it talk?** First offer the presets in `Personalities/` (Butler, Wingman, Coach, Professional, Mentor, Minimal), each with its one line from the README, or the option to write one from scratch. A chosen preset fills the fields below as defaults the owner can change. Then confirm the name (default Engram), personality in a sentence or two (default "plain and direct" when no preset is chosen), voice rules (optional), how to address the owner (default: no name until the owner gives one), and the greeting that opens every session (default "<Name> here. What are we working on?"). Goes into `Agent/Owner Profile.md`.
@@ -39,7 +39,7 @@ Hold the answers until the interview is done, then build. Every answer goes into
    Numbering runs from `00` in that order, skipping folders that weren't created.
 5. Copy the chosen files from `User/Templates/` into the owner's `Templates` folder.
 6. Fill in `Agent/Owner Profile.md` from the interview, `Agent/Vault Map.md` with the folders just created, and one index per owner folder in `Agent/Indexes/`, named without the folder's number (the daily notes index lists month subfolders, not each note).
-7. If daily notes are on, write `.obsidian/daily-notes.json` pointing at the daily notes folder, the daily note template, and the format (`YYYY-MM-DD`, or `MM - MMMM YYYY/YYYY-MM-DD` with monthly subfolders, which files each note in its month's folder), and turn on the core Templates plugin with the templates folder. In `.obsidian/core-plugins.json`, set only the `daily-notes` and `templates` entries to `true`; leave every other entry as it is and never replace the file.
+7. If daily notes are on, write `.obsidian/daily-notes.json` pointing at the daily notes folder, the daily note template, and the format (`YYYY-MM-DD`, or `MM - MMMM YYYY/YYYY-MM-DD` with monthly subfolders, which files each note in its month's folder), and turn on the core Templates plugin with the templates folder. In `.obsidian/core-plugins.json`, set only the `daily-notes` and `templates` entries to `true`; leave every other entry as it is and never replace the file. If the file doesn't exist yet, don't create it; Obsidian writes its own on first open.
 8. Check that `Agent/Vault Settings.md` matches what was built: folder names and numbering, daily notes folder and subfolders, `.obsidian/daily-notes.json`, and which templates exist. Fix whichever side is wrong.
 9. Write the first entry in `Agent/Log/` describing the setup.
 
