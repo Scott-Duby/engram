@@ -73,10 +73,12 @@ pub fn save_vault_path(vault: &Path) -> Result<()> {
 /// ENGRAM_VAULT wins, then the config file. None means no vault set up yet.
 pub fn find_vault() -> Result<Option<PathBuf>> {
     if let Some(path) = vault_from_env(std::env::var_os("ENGRAM_VAULT")) {
-        return Ok(Some(path));
+        return still_there(path, "ENGRAM_VAULT").map(Some);
     }
     match fs::read_to_string(config_file()?) {
-        Ok(text) => Ok(vault_from_env(Some(text.trim().into()))),
+        Ok(text) => vault_from_env(Some(text.trim().into()))
+            .map(|path| still_there(path, "the config file"))
+            .transpose(),
         Err(e) if e.kind() == ErrorKind::NotFound => Ok(None),
         Err(e) => Err(e.into()),
     }
@@ -84,6 +86,17 @@ pub fn find_vault() -> Result<Option<PathBuf>> {
 
 fn vault_from_env(value: Option<OsString>) -> Option<PathBuf> {
     value.filter(|v| !v.is_empty()).map(PathBuf::from)
+}
+
+// A moved or mistyped vault fails loudly instead of booting an agent with no memory.
+fn still_there(path: PathBuf, source: &str) -> Result<PathBuf> {
+    if !path.is_dir() {
+        bail!(
+            "{source} points at {}, but that folder doesn't exist",
+            path.display()
+        );
+    }
+    Ok(path)
 }
 
 #[cfg(test)]
@@ -140,6 +153,20 @@ mod tests {
         assert_eq!(
             vault_from_env(Some("/tmp/v".into())),
             Some(PathBuf::from("/tmp/v"))
+        );
+    }
+
+    #[test]
+    fn vault_path_must_be_a_folder() {
+        let tmp = tempfile::tempdir().unwrap();
+        let err = still_there(tmp.path().join("gone"), "ENGRAM_VAULT").unwrap_err();
+        assert!(err.to_string().contains("ENGRAM_VAULT points at"));
+        let file = tmp.path().join("vault.md");
+        fs::write(&file, "hi").unwrap();
+        assert!(still_there(file, "the config file").is_err());
+        assert_eq!(
+            still_there(tmp.path().to_path_buf(), "the config file").unwrap(),
+            tmp.path()
         );
     }
 }
