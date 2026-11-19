@@ -76,7 +76,7 @@ pub fn find_vault() -> Result<Option<PathBuf>> {
         return Ok(Some(path));
     }
     match fs::read_to_string(config_file()?) {
-        Ok(text) => Ok(Some(PathBuf::from(text.trim()))),
+        Ok(text) => Ok(vault_from_env(Some(text.trim().into()))),
         Err(e) if e.kind() == ErrorKind::NotFound => Ok(None),
         Err(e) => Err(e.into()),
     }

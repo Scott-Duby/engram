@@ -1,16 +1,16 @@
 # Vault setup
 
-How a vault gets Engram. Run by `brain init` once it exists; until then, the assistant follows these steps in a live session. This file is not copied into the vault.
+How a vault gets Engram. `brain init <path>` does the plumbing first: it checks the path, creates the vault folder if needed, copies `Agent/` in (templates included), and records the vault path (`brain vault` prints it). The assistant then runs the interview and the rest of the build in a live session. Without the CLI, the assistant does those steps by hand too. This file is not copied into the vault.
 
 ## The interview
 
 Ask one question at a time and wait for the answer. Offer the default; the owner can take it with a plain "yes."
 
 1. **New vault or existing vault?**
-   - If the installer already gave a vault path, don't ask this. Check the path instead: nothing there means a new vault (confirm the path once, then go on to question 2); an Obsidian vault there means an existing vault (handle it as below); anything else (a folder with no `.obsidian/`) means stop and ask.
+   - If `brain init` already ran, don't ask this: it checked the path and copied `Agent/` in. A vault with no `.obsidian/` folder is new; one with `.obsidian/` is existing (handle it as below).
    - New: ask where to create it (default `~/Documents/<Assistant name> Vault`).
    - Existing: ask for its path, then confirm it is an Obsidian vault (it has a `.obsidian/` folder). If an `Agent/` folder already exists there, stop and ask before going further.
-2. **What should the assistant be called, and how should it talk?** First offer the presets in `Personalities/` (Butler, Wingman, Coach, Professional, Mentor, Minimal), each with its one line from the README, or the option to write one from scratch. A chosen preset fills the fields below as defaults the owner can change. Then confirm the name (default Engram), personality in a sentence or two, voice rules (optional), how to address the owner, and the greeting that opens every session (default "<Name> here. What are we working on?"). Goes into `Agent/Owner Profile.md`.
+2. **What should the assistant be called, and how should it talk?** First offer the presets in `Personalities/` (Butler, Wingman, Coach, Professional, Mentor, Minimal), each with its one line from the README, or the option to write one from scratch. A chosen preset fills the fields below as defaults the owner can change. Then confirm the name (default Engram), personality in a sentence or two (default "plain and direct" when no preset is chosen), voice rules (optional), how to address the owner (default: no name until the owner gives one), and the greeting that opens every session (default "<Name> here. What are we working on?"). Goes into `Agent/Owner Profile.md`.
 3. **Numbered folders?** (`00 - Inbox`, `01 - Daily Notes` ...) Default: yes for a new vault. For an existing vault, keep whatever it already does and ask only whether to number the folders this setup adds.
 4. **Tags as folders?** A `Tags/` folder holding one note per tag, each linking the notes that carry it, so tags can be browsed like folders. Default: no.
 5. **Daily notes?** Default: yes. If yes, ask which folder (default `Daily Notes`) and whether to use monthly subfolders (default yes, `NN - Month YYYY`).
@@ -21,8 +21,8 @@ Hold the answers until the interview is done, then build. Every answer goes into
 
 ## Building a new vault
 
-1. Create the vault folder.
-2. Copy `Agent/` in. Drop `Agent/Templates/` if the owner said no to assistant templates.
+1. Create the vault folder and copy `Agent/` in (`brain init` already did both).
+2. Delete `Agent/Templates/` if the owner said no to assistant templates.
 3. Write every interview answer into `Agent/Vault Settings.md`.
 4. Create the owner's folders, numbered if chosen, in this order:
 
@@ -39,17 +39,17 @@ Hold the answers until the interview is done, then build. Every answer goes into
    Numbering runs from `00` in that order, skipping folders that weren't created.
 5. Copy the chosen files from `User/Templates/` into the owner's `Templates` folder.
 6. Fill in `Agent/Owner Profile.md` from the interview, `Agent/Vault Map.md` with the folders just created, and one index per owner folder in `Agent/Indexes/`, named without the folder's number (the daily notes index lists month subfolders, not each note).
-7. If daily notes are on, write `.obsidian/daily-notes.json` pointing at the daily notes folder, the daily note template, and the format (`YYYY-MM-DD`, or `MM - MMMM YYYY/YYYY-MM-DD` with monthly subfolders, which files each note in its month's folder), and turn on the core Templates plugin with the templates folder.
+7. If daily notes are on, write `.obsidian/daily-notes.json` pointing at the daily notes folder, the daily note template, and the format (`YYYY-MM-DD`, or `MM - MMMM YYYY/YYYY-MM-DD` with monthly subfolders, which files each note in its month's folder), and turn on the core Templates plugin with the templates folder. In `.obsidian/core-plugins.json`, set only the `daily-notes` and `templates` entries to `true`; leave every other entry as it is and never replace the file.
 8. Check that `Agent/Vault Settings.md` matches what was built: folder names and numbering, daily notes folder and subfolders, `.obsidian/daily-notes.json`, and which templates exist. Fix whichever side is wrong.
 9. Write the first entry in `Agent/Log/` describing the setup.
 
 ## Adding Engram to an existing vault
 
 1. Change nothing the owner already has. No moves, renames, frontmatter edits, or new files outside `Agent/` without asking first.
-2. Copy `Agent/` in (minus `Agent/Templates/` if declined).
+2. Copy `Agent/` in (`brain init` already did), then delete `Agent/Templates/` if declined.
 3. Write every interview answer into `Agent/Vault Settings.md`.
 4. Read the vault's top-level folders and write them into `Agent/Vault Map.md` as they are. Build an index in `Agent/Indexes/` for each folder with real content; list notes by name only, without reading their contents unless the owner asks for a full read.
-5. Add only the owner-side pieces the owner said yes to (daily notes folder, templates, `Tags/`), matching the vault's existing naming.
+5. Add only the owner-side pieces the owner said yes to (daily notes folder, templates, `Tags/`), matching the vault's existing naming. Any `.obsidian/` change follows the same rule as new-vault step 7: edit only the entries setup needs, never replace a file.
 6. Check that `Agent/Vault Settings.md` matches what was added, and fix whichever side is wrong.
 7. Write the first entry in `Agent/Log/` describing what was added and where.
 
