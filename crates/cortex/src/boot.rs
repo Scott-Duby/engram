@@ -43,6 +43,15 @@ pub fn build_part(part: Part, vault: &Path) -> String {
     out
 }
 
+// If vault is missing, agent requests the path of the vault or where to create new vault
+pub fn missing_vault(reason: &str) -> String {
+    let (n, name) = Part::Index.label();
+
+    format!(
+        "Engram boot context (part {n} of 4: {name})\n\n{reason}. Ask the owner where their vault is, then run `brain init <PATH>`. \n"
+    )
+}
+
 // Adds files to boot section unless files are > BUDGET
 fn add_file(part: &mut String, title: &str, path: &Path) {
     let text = match fs::read_to_string(path) {
@@ -113,5 +122,12 @@ mod tests {
         let out = build_part(Part::State, dir.path());
         assert!(out.starts_with("Engram boot context (part 3 of 4: state)"));
         assert!(out.contains("Couldn't read Active Priorities"));
+    }
+
+    #[test]
+    fn missing_vault_keeps_the_header() {
+        let out = missing_vault("No vault set up yet");
+        assert!(out.starts_with("Engram boot context (part 1 of 4: index)"));
+        assert!(out.contains("No vault set up yet. Ask the owner"));
     }
 }
