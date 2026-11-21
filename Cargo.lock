@@ -369,6 +369,7 @@ dependencies = [
  "anyhow",
  "clap",
  "cortex",
+ "tempfile",
 ]
 
 [[package]]
