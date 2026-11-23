@@ -1,5 +1,5 @@
 use std::fs;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 
 // Bytes available on boot; Claude hooks cap out around 10,000
 const BUDGET: usize = 9000;
@@ -43,7 +43,7 @@ pub fn build_part(part: Part, vault: &Path) -> String {
     out
 }
 
-// If vault is missing, agent requests the path of the vault or where to create new vault
+/// If vault is missing, agent requests the path of the vault or where to create new vault
 pub fn missing_vault(reason: &str) -> String {
     let (n, name) = Part::Index.label();
 
@@ -52,16 +52,86 @@ pub fn missing_vault(reason: &str) -> String {
     )
 }
 
-// Adds files to boot section unless files are > BUDGET
-fn add_file(part: &mut String, title: &str, path: &Path) {
-    let text = match fs::read_to_string(path) {
-        Ok(text) => text,
-        Err(_) => {
-            part.push_str(&format!("Couldn't read {title} at {}\n\n", path.display()));
-            return;
-        }
+/// The Index block of the latest log before today, then today's log
+pub fn build_today(vault: &Path, today: &str) -> String {
+    let logs = log_files(&vault.join("Agent").join("Log"));
+    let mut out = String::from("Engram boot context (part 4 of 4: today)\n\n");
+
+    match logs.iter().rev().find(|(day, _)| day.as_str() < today) {
+        Some((day, path)) => add_log(&mut out, &format!("Most recent log ({day})"), path),
+        None => out.push_str("No earlier log.\n\n"),
+    }
+    match logs.iter().find(|(day, _)| day.as_str() == today) {
+        Some((day, path)) => add_log(&mut out, &format!("Today so far ({day})"), path),
+        None => out.push_str("No log yet today. This is the first session.\n\n"),
+    }
+
+    out
+}
+
+// Dated logs under Agent/Log/<month>/, oldest first; symlinks and other files skipped
+fn log_files(log_dir: &Path) -> Vec<(String, PathBuf)> {
+    let mut logs = Vec::new();
+    let Ok(months) = fs::read_dir(log_dir) else {
+        return logs;
     };
-    let section = format!("## {title}\n\n{text}\n\n");
+    for month in months.flatten() {
+        if !month.file_type().is_ok_and(|t| t.is_dir()) {
+            continue;
+        }
+        let Ok(days) = fs::read_dir(month.path()) else {
+            continue;
+        };
+        for day in days.flatten() {
+            let path = day.path();
+            if day.file_type().is_ok_and(|t| t.is_file())
+                && path.extension().is_some_and(|ext| ext == "md")
+                && let Some(stem) = path.file_stem().and_then(|s| s.to_str())
+                && is_log_name(stem)
+            {
+                logs.push((stem.to_string(), path))
+            }
+        }
+    }
+    logs.sort();
+    logs
+}
+
+fn add_log(part: &mut String, title: &str, path: &Path) {
+    let Ok(text) = fs::read_to_string(path) else {
+        part.push_str(&format!("Couldn't read {title} at {}\n\n", path.display()));
+        return;
+    };
+    match index_block(&text) {
+        Some(block) => push_section(part, title, &block, path),
+        None => part.push_str(&format!(
+            "{title} has no ## Index block. Read {} directly.\n\n",
+            path.display()
+        )),
+    }
+}
+
+fn is_log_name(stem: &str) -> bool {
+    stem.len() == 10
+        && stem.bytes().enumerate().all(|(i, b)| {
+            if i == 4 || i == 7 {
+                b == b'-'
+            } else {
+                b.is_ascii_digit()
+            }
+        })
+}
+
+fn index_block(text: &str) -> Option<String> {
+    let mut lines = text.lines();
+    lines.find(|line| line.trim_end() == "## Index")?;
+
+    let block: Vec<&str> = lines.take_while(|line| !line.starts_with("## ")).collect();
+    Some(block.join("\n").trim().to_string())
+}
+// Appends a titled section unless it would push the part over BUDGET
+fn push_section(part: &mut String, title: &str, body: &str, path: &Path) {
+    let section = format!("## {title}\n\n{body}\n\n");
     if part.len() + section.len() <= BUDGET {
         part.push_str(&section);
     } else {
@@ -71,6 +141,18 @@ fn add_file(part: &mut String, title: &str, path: &Path) {
             path.display()
         ));
     }
+}
+
+// Reads a vault file into the part; a failed read becomes a notice.
+fn add_file(part: &mut String, title: &str, path: &Path) {
+    let text = match fs::read_to_string(path) {
+        Ok(text) => text,
+        Err(_) => {
+            part.push_str(&format!("Couldn't read {title} at {}\n\n", path.display()));
+            return;
+        }
+    };
+    push_section(part, title, &text, path);
 }
 
 #[cfg(test)]
@@ -129,5 +211,66 @@ mod tests {
         let out = missing_vault("No vault set up yet");
         assert!(out.starts_with("Engram boot context (part 1 of 4: index)"));
         assert!(out.contains("No vault set up yet. Ask the owner"));
+    }
+
+    #[test]
+    fn log_names_must_be_dates() {
+        assert!(is_log_name("2026-11-22"));
+        for bad in ["Log", "2026-1-22", "2026_11_22", "2026-11-22 copy"] {
+            assert!(!is_log_name(bad), "{bad} should not count as a log")
+        }
+    }
+
+    #[test]
+    fn index_block_stops_at_next_heading() {
+        let log = "# Sunday\n\n## Index\n\n- **A**: one\n- **B**: two\n\n## Session 1\nbody";
+        let want = Some("- **A**: one\n- **B**: two".to_string());
+
+        assert_eq!(index_block(log), want);
+        assert_eq!(index_block(&log.replace('\n', "\r\n")), want);
+        assert_eq!(index_block("# Sunday\n\n## Session 1\nbody"), None);
+    }
+
+    #[test]
+    fn today_part_shows_last_log_and_today() {
+        let dir = tempfile::tempdir().unwrap();
+        let log = dir.path().join("Agent").join("Log");
+        fs::create_dir_all(log.join("2026-10")).unwrap();
+        fs::create_dir_all(log.join("2026-11")).unwrap();
+        let entry = |text: &str| format!("# Day\n\n## Index\n\n- {text}\n\n## Session 1\nbody");
+        fs::write(log.join("2026-10").join("2026-10-31.md"), entry("october")).unwrap();
+        fs::write(log.join("2026-11").join("2026-11-20.md"), entry("older")).unwrap();
+        fs::write(
+            log.join("2026-11").join("2026-11-21.md"),
+            entry("yesterday"),
+        )
+        .unwrap();
+        fs::write(log.join("2026-11").join("2026-11-22.md"), entry("today")).unwrap();
+        fs::write(log.join("2026-11").join("notes.md"), entry("junk")).unwrap();
+        fs::write(log.join("Log.md"), "not a log").unwrap();
+
+        let out = build_today(dir.path(), "2026-11-22");
+        assert!(out.starts_with("Engram boot context (part 4 of 4: today)"));
+        assert!(out.contains("## Most recent log (2026-11-21)\n\n- yesterday"));
+        assert!(out.contains("## Today so far (2026-11-22)\n\n- today"));
+        for skipped in ["older", "october", "junk", "Session 1"] {
+            assert!(
+                !out.contains(skipped),
+                "{skipped} should not be in the part"
+            );
+        }
+
+        // First session of a new month: last month's log, nothing yet today
+        let next = build_today(dir.path(), "2026-12-01");
+        assert!(next.contains("## Most recent log (2026-11-22)"));
+        assert!(next.contains("No log yet today."));
+    }
+
+    #[test]
+    fn today_part_without_logs_says_so() {
+        let dir = tempfile::tempdir().unwrap();
+        let out = build_today(dir.path(), "2026-11-22");
+        assert!(out.contains("No earlier log."));
+        assert!(out.contains("No log yet today."));
     }
 }
