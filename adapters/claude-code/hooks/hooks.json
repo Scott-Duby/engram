@@ -1,0 +1,19 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "brain boot index || echo \"Engram boot context (part 1 of 4: index): the brain command was not found, so no vault context loaded. Tell the owner to run brain install or put brain on the PATH.\"",
+            "timeout": 10
+          },
+          { "type": "command", "command": "brain boot profile", "timeout": 10 },
+          { "type": "command", "command": "brain boot state", "timeout": 10 },
+          { "type": "command", "command": "brain boot today", "timeout": 10 }
+        ]
+      }
+    ]
+  }
+}

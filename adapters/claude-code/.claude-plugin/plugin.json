@@ -1,0 +1,9 @@
+{
+  "name": "engram",
+  "version": "0.1.0",
+  "description": "Loads an Obsidian vault as the agent's memory at session start",
+  "author": {
+    "name": "Scott Duby"
+  },
+  "license": "AGPL-3.0-or-later"
+}
