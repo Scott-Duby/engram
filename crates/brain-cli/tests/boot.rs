@@ -44,6 +44,21 @@ fn missing_vault_folder_is_reported_once_and_never_fails() {
     assert!(stdout(&profile).is_empty());
 }
 
+#[test]
+fn today_prints_todays_log() {
+    let home = tempfile::tempdir().unwrap();
+    let vault = tempfile::tempdir().unwrap();
+    let today = jiff::ZonedDateTime::now().date().to_string();
+    let month = vault.path().join("Agent/Log").join(&today[..7]);
+    fs::create_dir_all(&month).unwrap();
+    fs::write(month.join(format!("{today}.md")), "## Index\n\n- today\n").unwrap();
+
+    let out = boot("today", home.path(), Some(vault.path()));
+    assert!(out.status.success());
+    assert!(stdout(&out).starts_with("Engram boot context (part 4 of 4: today)"));
+    assert!(stdout(&out).contains(&format!("## Today so far ({today})\n\n- today")));
+}
+
 // shortcut: Unix only, since `dirs` ignores HOME on Windows and the test would read the real config; upgrade if config_file gains an override.
 #[cfg(unix)]
 #[test]
@@ -62,6 +77,7 @@ fn unknown_part_is_rejected_loudly() {
     let out = boot("nope", home.path(), None);
     assert!(!out.status.success());
     assert!(
-        String::from_utf8_lossy(&out.stderr).contains("possible values: index, profile, state")
+        String::from_utf8_lossy(&out.stderr)
+            .contains("possible values: index, profile, state, today")
     );
 }
