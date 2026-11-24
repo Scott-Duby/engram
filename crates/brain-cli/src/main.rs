@@ -1,6 +1,7 @@
 use anyhow::{Context, Result, bail};
 use clap::{Parser, Subcommand, ValueEnum};
 use cortex::boot::{self, Part};
+use cortex::install;
 use cortex::vault::{self, VaultKind};
 use std::path::{Path, PathBuf};
 use std::time::SystemTime;
@@ -22,6 +23,8 @@ enum Command {
     },
     /// Print the vault in use
     Vault,
+    /// Install the Engram plugin into Claude Code
+    Install,
     Boot {
         part: BootPart,
     },
@@ -44,6 +47,7 @@ fn main() -> Result<()> {
             None => bail!("no vault set up yet; run `brain init <PATH>` first"),
         },
         Command::Boot { part } => boot_part(part),
+        Command::Install => install_claude_code()?,
     }
     Ok(())
 }
@@ -58,6 +62,23 @@ fn init(path: &Path) -> Result<()> {
     match kind {
         VaultKind::New => println!("Created a new vault at {}", dir.display()),
         VaultKind::Existing => println!("Added the Agent folder to {}", dir.display()),
+    }
+    Ok(())
+}
+
+/// Install the claude engram plugin
+fn install_claude_code() -> Result<()> {
+    install::claude_code()?;
+    println!("Installed the Engram plugin in Claude Code");
+
+    if !install::on_path("brain", std::env::var_os("PATH").as_deref()) {
+        let dir = std::env::current_exe()?
+            .parent()
+            .map(|d| d.display().to_string());
+        println!(
+            "Warning: `brain` is not on your PATH, so the boot hook can't run it. Add {} to PATH",
+            dir.unwrap_or_else(|| "the folder holding brain".to_string())
+        );
     }
     Ok(())
 }
