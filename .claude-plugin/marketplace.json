@@ -1,0 +1,14 @@
+{
+  "name": "engram",
+  "description": "Engram: an Obsidian vault as the agent's memory",
+  "owner": {
+    "name": "Scott Duby"
+  },
+  "plugins": [
+    {
+      "name": "engram",
+      "source": "./adapters/claude-code",
+      "description": "Loads an Obsidian vault as the agent's memory at session start"
+    }
+  ]
+}
