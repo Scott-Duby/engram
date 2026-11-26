@@ -26,7 +26,7 @@ Skip one-off fixes. If the job won't come up again, the lesson has no reader.
    - The dead end to skip, and why it failed.
    - The date you learned it.
 3. **Fold, don't pile.** If the lesson replaces or sharpens an older one, rewrite that bullet. Don't leave both. If a lesson changes the main procedure, update the procedure and drop the bullet.
-4. **Correct the profile if needed.** A correction about how the owner wants things done in general (not just in this job) goes in the Owner Profile's Standing Calls instead (see `owner-profile`).
+4. **Correct the profile if needed.** A correction about how the owner wants things done in general (not just in this job) goes in the Owner Profile's Standing Calls, and only there (see `owner-profile`). A runbook or the Vault Map that depends on it links to the standing call instead of restating it.
 5. **Log it** with a `checkpoint` and read the change back.
 
 ## Runbook format

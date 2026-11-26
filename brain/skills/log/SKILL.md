@@ -23,7 +23,7 @@ Daily notes are different: they belong to the owner. When `Agent/Vault Settings.
    - A readable date heading: `# Wednesday, November 11, 2026`.
    - An `## Index` block right under the heading.
    - The session section.
-3. **If today's log exists,** don't overwrite anything. Add a new `## Session N, H:MM PM: <topic>` section at the end and a line for it in the Index.
+3. **If today's log exists,** don't overwrite anything. Add a new `## Session N, H:MM PM: <topic>` section at the end of the file, and its Index line as the last bullet of the `## Index` block, above the first `## Session` heading.
 4. **Fill the session section:**
    - **What changed:** finished work, with links to the notes it touched, and any files changed outside the vault (with their path).
    - **Still open:** what's open right now. This is a snapshot. `Agent/Active Priorities.md` is the live list.
@@ -32,7 +32,7 @@ Daily notes are different: they belong to the owner. When `Agent/Vault Settings.
    - **Profile updates:** every change to the Owner Profile (see the `owner-profile` skill).
 5. **Index line:** `- **<Bold topic>**: <one sentence on the outcome>.`
 6. **Daily note, if on.** Find or create today's daily note where `Agent/Vault Settings.md` says, built from the owner's daily note template. Never write a bare heading. If it starts a new month subfolder, add the month to the daily notes folder's index. Fill only the template's own sections, in plain language a person would write for themselves: what got done, not how you did it. Leave out paths, commit hashes, and your own working notes; those stay in the log. Never overwrite what the owner wrote there.
-7. Read every change back and confirm it's there.
+7. Read every change back and confirm it's there. The Index has exactly one line per session, and nothing sits between its last bullet and the first `## Session` heading.
 
 ## At session start: check the previous day
 

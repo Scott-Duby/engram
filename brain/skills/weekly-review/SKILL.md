@@ -14,7 +14,7 @@ description: Check every open item in Active Priorities against its real state a
 3. **Read the whole list,** then go through every open item, one at a time:
    1. **Check its real state.** Read the notes, files, or commands the item points at. Never close or keep an item on memory alone.
    2. **Done?** Mark it `- [x]` with the date, or move it to Completed Tasks.
-   3. **Date passed?** An event, deadline, or exam that is behind the current date: if the vault shows the outcome, record it and close the item. If it doesn't, ask the owner.
+   3. **Date passed?** An event, deadline, or exam that is behind the current date: if the vault shows the outcome, record it and close the item. If it doesn't, ask the owner. This applies to parked items too: parking stops the work, not the question of whether the date was met.
    4. **Stale?** No movement in the vault for 14 days or more (check `Agent/Log/` and the item's linked notes). List it for the owner to keep, park, or drop.
    5. **Blocked?** If it's waiting on something, name what it's waiting on in the item.
    6. **Wrong?** If the item's details no longer match the vault (a file moved, a count changed), fix the item.
